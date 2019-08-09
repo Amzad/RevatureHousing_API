@@ -9,8 +9,12 @@ namespace RevHousingAPI.IRepositories
 {
     public interface ILocationRepository : IRepository<Location>
     {
+
         IEnumerable<Location> GetAllLocations();
         IEnumerable<Location> GetLocationByTraningCenter(string TrainingCenter);
+
+        bool RemoveLocation(int id);
+
     }
  
 }
