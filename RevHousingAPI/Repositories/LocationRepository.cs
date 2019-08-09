@@ -29,12 +29,12 @@ namespace RevHousingAPI.Repositories
         }
         public IEnumerable<Location> GetAllLocations()
         {          
-            return ApplicationDBContext.Location.ToList();
+            return Context.Location.ToList();
 
         }
         public IEnumerable<Location> GetLocationByTraningCenter(string TrainingCenter)
         {
-            return ApplicationDBContext.Location.Where(c => c.TrainingCenter == TrainingCenter);
+            return Context.Location.Where(c => c.TrainingCenter == TrainingCenter);
         }
     }
 }
