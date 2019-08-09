@@ -62,19 +62,14 @@ namespace RevHousingAPI.Repositories
             Context.Set<TEntity>().Add(entity);
         }
 
-        public void AddRange(IEnumerable<TEntity> entities)
-        {
-            Context.Set<TEntity>().AddRange(entities);
-        }
+        //public void AddRange(IEnumerable<TEntity> entities)
+        //{
+        //    Context.Set<TEntity>().AddRange(entities);
+        //}
 
-        public void Remove(TEntity entity)
-        {
-            Context.Set<TEntity>().Remove(entity);
-        }
-
-        public void RemoveRange(IEnumerable<TEntity> entities)
-        {
-            Context.Set<TEntity>().RemoveRange(entities);
-        }
+        //public void RemoveRange(IEnumerable<TEntity> entities)
+        //{
+        //    Context.Set<TEntity>().RemoveRange(entities);
+        //}
     }
 }

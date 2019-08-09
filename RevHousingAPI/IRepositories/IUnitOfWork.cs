@@ -1,5 +1,4 @@
 ﻿using RevHousingAPI.Repositories;
-using RHEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace RevHousingAPI.IRepositories
 {
-    public interface IRoomRepository: IRepository<Room>
+    public interface IUnitOfWork : IDisposable
     {
-        Room GetRoomWithLocation(int id);
+        IRoomRepository Rooms { get; }
+        int Complete();
     }
 }
