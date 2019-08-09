@@ -11,6 +11,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+<<<<<<< HEAD
+=======
+using RevHousingAPI.DAL;
+>>>>>>> 2917018dc422aa53a172b36b28ebd3a7eed3b34f
 using RevHousingAPI.DataContext;
 
 namespace RevHousingAPI
@@ -43,7 +47,8 @@ namespace RevHousingAPI
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
-
+            services.AddScoped<ILocationContext, LocationDAL>();
+            services.AddScoped<IProviderContext, ProviderDAL>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

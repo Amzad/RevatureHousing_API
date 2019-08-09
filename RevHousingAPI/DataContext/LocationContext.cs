@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using RHEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +10,7 @@ using RHEntities;
 
 namespace RevHousingAPI.DataContext
 {
+<<<<<<< HEAD
     public class LocationContext : ILocationContext
     {
         private ApplicationDBContext _context;
@@ -50,5 +54,11 @@ namespace RevHousingAPI.DataContext
             await _context.SaveChangesAsync();
 
         }
+=======
+    public class LocationContext
+    {
+
+
+>>>>>>> 2917018dc422aa53a172b36b28ebd3a7eed3b34f
     }
 }
