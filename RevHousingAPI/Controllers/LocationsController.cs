@@ -30,6 +30,13 @@ namespace RevHousingAPI.Controllers
             repo = new LocationRepository(_context);
         }
 
+
+        [HttpGet("TrainingCenterLocation")]
+        public async Task<IEnumerable<Location>> GetLocationByTrainingCenter(string location)
+        {
+            return repo.GetLocationByTraningCenter(location);
+        }
+
         // GET: api/Locations
         [HttpGet]
         public async Task<IEnumerable<Location>> GetLocation()

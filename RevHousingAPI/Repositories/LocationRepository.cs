@@ -27,11 +27,8 @@ namespace RevHousingAPI.Repositories
             Context.Location.Remove(location);
             return true;
         }
-        public IEnumerable<Location> GetAllLocations()
-        {          
-            return Context.Location.ToList();
+       
 
-        }
         public IEnumerable<Location> GetLocationByTraningCenter(string TrainingCenter)
         {
             return Context.Location.Where(c => c.TrainingCenter == TrainingCenter);
