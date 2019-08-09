@@ -26,5 +26,16 @@ namespace RevHousingAPI.Repositories
         {
             return ApplicationDBContext.Location.Where(c => c.TrainingCenter == TrainingCenter);
         }
+
+        public bool RemoveLocation(int id)
+        {
+            Location location = ApplicationDBContext.Location.Find(id);
+            if (location == null)
+            {
+                return false;
+            }
+            ApplicationDBContext.Location.Remove(location);
+            return true;
+        }
     }
 }
