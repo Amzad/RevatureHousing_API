@@ -19,36 +19,6 @@ namespace RevHousingAPI.DAL
             _context = context;
         }
 
-        public Task<ActionResult<RHEntities.Location>> DeleteLocation(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ActionResult<RHEntities.Location>> GetLocation(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool LocationExists(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ActionResult<RHEntities.Location>> PostLocation(RHEntities.Location location)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IActionResult> PutLocation(int id, RHEntities.Location location)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<ActionResult<IEnumerable<RHEntities.Location>>> GetAllLocation()
-        {
-            return await _context.Location.ToListAsync();
-        }
-
 
     }
 }
