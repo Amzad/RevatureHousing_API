@@ -10,10 +10,7 @@ namespace RevHousingAPI.IRepositories
     public interface ILocationRepository : IRepository<Location>
     {
         IEnumerable<Location> GetAllLocations();
-        Location GetLocation(int id);
-        Location UpdateLocation(Location location);
-        Location DeleteLocation(Location location);
-
+        IEnumerable<Location> GetLocationByTraningCenter(string TrainingCenter);
     }
  
 }
