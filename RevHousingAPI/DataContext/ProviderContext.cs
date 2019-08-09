@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RevHousingAPI.DataContext
 {
-    public class ProviderContext : IProviderContext
+    public class ProviderContext 
     {
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using RHEntities;
 using RevHousingAPI;
 using Microsoft.AspNetCore.Cors;
+using RevHousingAPI.DataContext;
 
 namespace RevHousingAPI.Controllers
 {
@@ -16,35 +17,32 @@ namespace RevHousingAPI.Controllers
     [EnableCors("CorsPolicy")]
     public class ProvidersController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
-
-        public ProvidersController(ApplicationDBContext context)
+        private readonly IProviderContext _dal;
+        public ProvidersController(IProviderContext dal)
         {
-            _context = context;
+            _dal = dal;
         }
 
         // GET: api/Providers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Provider>>> GetProvider()
         {
-            return await _context.Provider.ToListAsync();
+            return await _dal.GetAllProvider();
         }
 
-        // GET: api/Providers/5
+        //// GET: api/Providers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Provider>> GetProvider(int id)
         {
-            var provider = await _context.Provider.FindAsync(id);
-
+            var provider = await _dal.GetProvider(id);
             if (provider == null)
             {
                 return NotFound();
             }
-
             return provider;
         }
 
-        // PUT: api/Providers/5
+        //// PUT: api/Providers/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProvider(int id, Provider provider)
         {
@@ -53,23 +51,11 @@ namespace RevHousingAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(provider).State = EntityState.Modified;
+            //_dal.Entry(provider).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProviderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+
+            await _dal.PutProvider(id, provider);
+
 
             return NoContent();
         }
@@ -78,31 +64,28 @@ namespace RevHousingAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Provider>> PostProvider(Provider provider)
         {
-            _context.Provider.Add(provider);
-            await _context.SaveChangesAsync();
-
+            //_context.Provider.Add(provider);
+            //await _context.SaveChangesAsync();
+            await _dal.AddProvider(provider);
             return CreatedAtAction("GetProvider", new { id = provider.ProviderID }, provider);
         }
 
-        // DELETE: api/Providers/5
+        //// DELETE: api/Providers/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Provider>> DeleteProvider(int id)
         {
-            var provider = await _context.Provider.FindAsync(id);
+            var provider = await _dal.DeleteProvider(id);
             if (provider == null)
             {
                 return NotFound();
             }
 
-            _context.Provider.Remove(provider);
-            await _context.SaveChangesAsync();
-
             return provider;
         }
 
-        private bool ProviderExists(int id)
-        {
-            return _context.Provider.Any(e => e.ProviderID == id);
-        }
+        //private bool ProviderExists(int id)
+        //{
+        //    return _context.Provider.Any(e => e.ProviderID == id);
+        //}
     }
 }
