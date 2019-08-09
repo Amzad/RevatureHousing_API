@@ -10,7 +10,6 @@ using RHEntities;
 
 namespace RevHousingAPI.DataContext
 {
-<<<<<<< HEAD
     public class LocationContext : ILocationContext
     {
         private ApplicationDBContext _context;
@@ -54,11 +53,5 @@ namespace RevHousingAPI.DataContext
             await _context.SaveChangesAsync();
 
         }
-=======
-    public class LocationContext
-    {
 
-
->>>>>>> 2917018dc422aa53a172b36b28ebd3a7eed3b34f
-    }
 }
