@@ -29,6 +29,7 @@ namespace RevHousingAPI.Controllers
         {
             return await _context.Room.ToListAsync();
         }
+        
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]

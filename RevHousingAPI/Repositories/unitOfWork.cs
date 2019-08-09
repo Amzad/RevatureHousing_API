@@ -1,18 +1,17 @@
 ﻿using RevHousingAPI.IRepositories;
-using RevHousingAPI.Repositories;
-using RHEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RHEntities;
 
-namespace RevHousingAPI.Controllers
+namespace RevHousingAPI.Repositories
 {
-    public class UnitOfWork: IUnitOfWork
+    public class unitOfWork : IUnitOfWork
     {
         private readonly ApplicationDBContext _context;
 
-        public UnitOfWork(ApplicationDBContext context)
+        public unitOfWork(ApplicationDBContext context)
         {
             _context = context;
             Rooms = new RoomRepository(_context);
