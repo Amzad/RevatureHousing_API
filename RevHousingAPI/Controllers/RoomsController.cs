@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RHEntities;
-using RevHousingAPI;
+using RevHousingAPI.Data;
+using RevHousingAPI.Repositories;
 using Microsoft.AspNetCore.Cors;
+using RevHousingAPI.IRepositories;
 
 namespace RevHousingAPI.Controllers
 {
@@ -17,38 +19,45 @@ namespace RevHousingAPI.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
+        private readonly IRoomRepository repo;
 
         public RoomsController(ApplicationDBContext context)
         {
             _context = context;
+            repo = new RoomRepository(_context);
         }
 
         // GET: api/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRoom()
+        public async Task<IEnumerable<Room>> GetRoom()
         {
-            return await _context.Room.ToListAsync();
+            return repo.GetAll();
         }
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int id)
         {
-            var room = await _context.Room.FindAsync(id);
+            return repo.Get(id);
+            /*var room = await _context.Room.FindAsync(id);
 
             if (room == null)
             {
                 return NotFound();
             }
 
-            return room;
+            return room;*/
         }
 
         // PUT: api/Rooms/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoom(int id, Room room)
+        public async Task<IActionResult> PutRoom(int? id, Room room)
         {
-            if (id != room.RoomID)
+            repo.Update(room);
+            repo.SaveChanges();
+
+            return NoContent();
+            /*if (id != room.RoomID)
             {
                 return BadRequest();
             }
@@ -71,31 +80,29 @@ namespace RevHousingAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return NoContent();*/
         }
 
         // POST: api/Rooms
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
-            _context.Room.Add(room);
-            await _context.SaveChangesAsync();
+            repo.Add(room);
+            repo.SaveChanges();
 
-            return CreatedAtAction("GetRoom", new { id = room.RoomID }, room);
+            return StatusCode(201);
         }
 
         // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Room>> DeleteRoom(int id)
+        public async Task<ActionResult<Room>> DeleteRoom(Room room)
         {
-            var room = await _context.Room.FindAsync(id);
-            if (room == null)
+            bool isRemoved = repo.RemoveRoom(room.RoomID);
+            if (isRemoved == false)
             {
                 return NotFound();
             }
-
-            _context.Room.Remove(room);
-            await _context.SaveChangesAsync();
+            repo.SaveChanges();
 
             return room;
         }

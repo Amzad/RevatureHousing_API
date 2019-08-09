@@ -11,11 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-<<<<<<< HEAD
-=======
-using RevHousingAPI.DAL;
->>>>>>> 2917018dc422aa53a172b36b28ebd3a7eed3b34f
-using RevHousingAPI.DataContext;
+using RevHousingAPI.Data;
 
 namespace RevHousingAPI
 {
@@ -31,8 +27,6 @@ namespace RevHousingAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ILocationContext, LocationContext>();
-
             services.AddDbContext<ApplicationDBContext>(options =>
             options.UseSqlServer(
                 Configuration.GetConnectionString("DefaultConnection")));
@@ -47,8 +41,6 @@ namespace RevHousingAPI
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
-            services.AddScoped<ILocationContext, LocationDAL>();
-            services.AddScoped<IProviderContext, ProviderDAL>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

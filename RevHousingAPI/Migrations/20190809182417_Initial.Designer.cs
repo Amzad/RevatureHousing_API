@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RevHousingAPI;
+using RevHousingAPI.Data;
 
 namespace RevHousingAPI.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20190808151308_azdb")]
-    partial class azdb
+    [Migration("20190809182417_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
