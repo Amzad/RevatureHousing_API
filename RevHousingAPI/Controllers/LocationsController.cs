@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using RHEntities;
 using RevHousingAPI;
 using Microsoft.AspNetCore.Cors;
+using RevHousingAPI.DataContext;
 
 namespace RevHousingAPI.Controllers
 {
@@ -16,93 +17,93 @@ namespace RevHousingAPI.Controllers
     [EnableCors("CorsPolicy")]
     public class LocationsController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
+        private ILocationContext _location;
 
-        public LocationsController(ApplicationDBContext context)
+        public LocationsController( ILocationContext location)
         {
-            _context = context;
+            _location = location;
         }
 
         // GET: api/Locations
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Location>>> GetLocation()
         {
-            return await _context.Location.ToListAsync();
+            var locations=await  _location.GetLocations();
+
+            if (locations == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(locations);
         }
 
         // GET: api/Locations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Location>> GetLocation(int id)
+        public async Task <ActionResult> GetLocation(int id)
         {
-            var location = await _context.Location.FindAsync(id);
+            var location = await _location.GetLocation(id);
 
             if (location == null)
             {
                 return NotFound();
             }
 
-            return location;
+            return Ok(location);
         }
 
         // PUT: api/Locations/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLocation(int id, Location location)
+        public async Task<ActionResult> PutLocation(int id, Location location)
         {
+            if (location==null)
+            {
+                return BadRequest(ModelState);
+
+            }
+
             if (id != location.LocationID)
             {
+                ModelState.AddModelError("", $"Location{location.Address} Id doesn't match");
+
                 return BadRequest();
             }
 
-            _context.Entry(location).State = EntityState.Modified;
+            await _location.UpdateLocation(location);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LocationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
             return NoContent();
         }
 
         // POST: api/Locations
         [HttpPost]
-        public async Task<ActionResult<Location>> PostLocation(Location location)
+        public  ActionResult PostLocation(Location location)
         {
-            _context.Location.Add(location);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+            _location.CreateLocation(location);
 
             return CreatedAtAction("GetLocation", new { id = location.LocationID }, location);
         }
 
         // DELETE: api/Locations/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Location>> DeleteLocation(int id)
+        public async Task<ActionResult> DeleteLocation(int id)
         {
-            var location = await _context.Location.FindAsync(id);
+            var location = await _location.GetLocation(id);
+
             if (location == null)
             {
                 return NotFound();
             }
 
-            _context.Location.Remove(location);
-            await _context.SaveChangesAsync();
+           await _location.DeleteLocation(location);
 
-            return location;
+            return NoContent();
         }
 
-        private bool LocationExists(int id)
-        {
-            return _context.Location.Any(e => e.LocationID == id);
-        }
+      
     }
 }
