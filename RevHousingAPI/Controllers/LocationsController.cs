@@ -17,26 +17,26 @@ namespace RevHousingAPI.Controllers
     [EnableCors("CorsPolicy")]
     public class LocationsController : ControllerBase
     {
-<<<<<<< HEAD
+
         private ILocationContext _location;
 
         public LocationsController( ILocationContext location)
         {
             _location = location;
-=======
+
         //private readonly ApplicationDBContext _context;
         private readonly ILocationContext _dal;
         public LocationsController(ILocationContext dal)
         {
             _dal = dal;
->>>>>>> 2917018dc422aa53a172b36b28ebd3a7eed3b34f
+
         }
 
         // GET: api/Locations
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Location>>> GetLocation()
         {
-<<<<<<< HEAD
+
             var locations=await  _location.GetLocations();
 
             if (locations == null)
@@ -114,7 +114,7 @@ namespace RevHousingAPI.Controllers
         }
 
       
-=======
+
             return await _dal.GetAllLocation();
         }
 
@@ -192,6 +192,6 @@ namespace RevHousingAPI.Controllers
         //{
         //    return _context.Location.Any(e => e.LocationID == id);
         //}
->>>>>>> 2917018dc422aa53a172b36b28ebd3a7eed3b34f
+
     }
 }
