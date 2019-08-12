@@ -49,6 +49,10 @@ namespace RevHousingAPI.Controllers
             return room;*/
         }
 
+        public async Task<IEnumerable<Room>> GetRoomWithLocationID(int id)
+        {
+            return repo.GetRoomWithLocation(id);
+        }
         // PUT: api/Rooms/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRoom(int? id, Room room)

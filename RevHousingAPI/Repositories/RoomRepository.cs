@@ -16,9 +16,9 @@ namespace RevHousingAPI.Repositories
         {
             Context = context;
         }
-        public Room GetRoomWithLocation(int id)
+        public IEnumerable<Room> GetRoomWithLocation(int id)
         {
-            return ApplicationDBContext.Room.Include(a => a.LocationID).SingleOrDefault(a => a.LocationID == id);
+            return Context.Room.Where(c => c.LocationID == id).ToList();
         }
         public ApplicationDBContext ApplicationDBContext
         {

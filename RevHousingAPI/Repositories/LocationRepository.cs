@@ -38,7 +38,8 @@ namespace RevHousingAPI.Repositories
         }
         public IEnumerable<Location> GetLocationByProviderID(string ProviderId)
         {
-            return Context.Location.Where(c=> c.ProviderID == ProviderId);
+            return Context.Location.Where(c=> c.ProviderID == ProviderId).ToList();
+
         }
     }
 }
