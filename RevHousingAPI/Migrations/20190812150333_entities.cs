@@ -4,26 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RevHousingAPI.Migrations
 {
-    public partial class _1 : Migration
+    public partial class entities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Providers",
-                columns: table => new
-                {
-                    ProviderID = table.Column<string>(nullable: false),
-                    FirstName = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(nullable: false),
-                    PhoneNumber = table.Column<string>(nullable: false),
-                    CompanyName = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Providers", x => x.ProviderID);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Locations",
                 columns: table => new
@@ -40,12 +24,22 @@ namespace RevHousingAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Locations", x => x.LocationID);
-                    table.ForeignKey(
-                        name: "FK_Locations_Providers_ProviderID",
-                        column: x => x.ProviderID,
-                        principalTable: "Providers",
-                        principalColumn: "ProviderID",
-                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Providers",
+                columns: table => new
+                {
+                    ProviderID = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    PhoneNumber = table.Column<string>(nullable: false),
+                    CompanyName = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Providers", x => x.ProviderID);
                 });
 
             migrationBuilder.CreateTable(
@@ -77,11 +71,6 @@ namespace RevHousingAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Locations_ProviderID",
-                table: "Locations",
-                column: "ProviderID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Rooms_LocationID",
                 table: "Rooms",
                 column: "LocationID");
@@ -90,13 +79,13 @@ namespace RevHousingAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Providers");
+
+            migrationBuilder.DropTable(
                 name: "Rooms");
 
             migrationBuilder.DropTable(
                 name: "Locations");
-
-            migrationBuilder.DropTable(
-                name: "Providers");
         }
     }
 }

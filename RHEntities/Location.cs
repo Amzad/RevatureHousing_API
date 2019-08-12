@@ -32,7 +32,7 @@ namespace RHEntities
         [Display(Name = "Training Center")]
         public string TrainingCenter { get; set; }
 
-        public virtual Provider Provider { get; set; }
+        //public virtual Provider Provider { get; set; }
         public string ProviderID { get; set; }
    }
 }

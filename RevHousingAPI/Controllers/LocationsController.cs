@@ -41,10 +41,10 @@ namespace RevHousingAPI.Controllers
         {
             return repo.GetLocationByProviderID(providerId);
         }
-        [HttpGet("TrainingCenterLocation")]
-        public async Task<IEnumerable<Location>> GetLocationByTrainingCenter(string location)
+        [HttpGet("Site/{TCLocation}")]
+        public async Task<IEnumerable<Location>> GetLocationByTrainingCenter(string tclocation)
         {
-            return repo.GetLocationByTraningCenter(location);
+            return repo.GetLocationByTraningCenter(tclocation);
         }
         // GET: api/Locations/5
         [HttpGet("{id}")]
