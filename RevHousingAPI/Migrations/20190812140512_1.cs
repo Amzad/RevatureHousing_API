@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RevHousingAPI.Migrations
 {
-    public partial class Initial : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,8 +12,7 @@ namespace RevHousingAPI.Migrations
                 name: "Providers",
                 columns: table => new
                 {
-                    ProviderID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProviderID = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
                     PhoneNumber = table.Column<string>(nullable: false),
@@ -36,7 +35,7 @@ namespace RevHousingAPI.Migrations
                     State = table.Column<string>(nullable: false),
                     ZipCode = table.Column<string>(nullable: false),
                     TrainingCenter = table.Column<string>(nullable: false),
-                    ProviderID = table.Column<int>(nullable: false)
+                    ProviderID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,7 +45,7 @@ namespace RevHousingAPI.Migrations
                         column: x => x.ProviderID,
                         principalTable: "Providers",
                         principalColumn: "ProviderID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

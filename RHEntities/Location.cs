@@ -33,6 +33,6 @@ namespace RHEntities
         public string TrainingCenter { get; set; }
 
         public virtual Provider Provider { get; set; }
-        public int ProviderID { get; set; }
+        public string ProviderID { get; set; }
    }
 }

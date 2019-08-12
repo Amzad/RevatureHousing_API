@@ -11,6 +11,7 @@ namespace RevHousingAPI.IRepositories
         bool RemoveLocation(int id);
         IEnumerable<Location> GetAllLocations();
         IEnumerable<Location> GetLocationByTraningCenter(string TrainingCenter);
+        IEnumerable<Location> GetLocationByProviderID(string ProviderID);
     }
 
 }

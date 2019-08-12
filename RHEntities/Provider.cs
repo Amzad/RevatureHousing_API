@@ -10,7 +10,7 @@ namespace RHEntities
     public class Provider
     {
         [Key]
-        public int ProviderID { get; set; }
+        public string ProviderID { get; set; }
 
         [Required]
         [Display(Name = "First Name")]

@@ -6,11 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20190808140810_initial.cs" />
-    <Compile Remove="Migrations\20190808140810_initial.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="appsettings.json" />
   </ItemGroup>
 

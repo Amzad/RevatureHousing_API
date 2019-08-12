@@ -31,7 +31,7 @@ namespace RevHousingAPI.Migrations
                     b.Property<string>("City")
                         .IsRequired();
 
-                    b.Property<int>("ProviderID");
+                    b.Property<string>("ProviderID");
 
                     b.Property<string>("State")
                         .IsRequired();
@@ -51,9 +51,8 @@ namespace RevHousingAPI.Migrations
 
             modelBuilder.Entity("RHEntities.Provider", b =>
                 {
-                    b.Property<int>("ProviderID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("ProviderID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("CompanyName")
                         .IsRequired();
@@ -115,8 +114,7 @@ namespace RevHousingAPI.Migrations
                 {
                     b.HasOne("RHEntities.Provider", "Provider")
                         .WithMany()
-                        .HasForeignKey("ProviderID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProviderID");
                 });
 
             modelBuilder.Entity("RHEntities.Room", b =>

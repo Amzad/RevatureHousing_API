@@ -10,8 +10,8 @@ using RevHousingAPI.Data;
 namespace RevHousingAPI.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20190809182417_Initial")]
-    partial class Initial
+    [Migration("20190812140512_1")]
+    partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,7 @@ namespace RevHousingAPI.Migrations
                     b.Property<string>("City")
                         .IsRequired();
 
-                    b.Property<int>("ProviderID");
+                    b.Property<string>("ProviderID");
 
                     b.Property<string>("State")
                         .IsRequired();
@@ -53,9 +53,8 @@ namespace RevHousingAPI.Migrations
 
             modelBuilder.Entity("RHEntities.Provider", b =>
                 {
-                    b.Property<int>("ProviderID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("ProviderID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("CompanyName")
                         .IsRequired();
@@ -117,8 +116,7 @@ namespace RevHousingAPI.Migrations
                 {
                     b.HasOne("RHEntities.Provider", "Provider")
                         .WithMany()
-                        .HasForeignKey("ProviderID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProviderID");
                 });
 
             modelBuilder.Entity("RHEntities.Room", b =>
