@@ -58,7 +58,6 @@ namespace RevHousingAPI.Controllers
         public async Task<IActionResult> PutLocation(int? id, Location location)
         {
             repo.Update(location);
-            repo.SaveChanges();
 
             return NoContent();
             /*if (location == null)
@@ -85,7 +84,6 @@ namespace RevHousingAPI.Controllers
         public ActionResult PostLocation(Location location)
         {
             repo.Add(location);
-            repo.SaveChanges();
 
             return StatusCode(201);
         }
@@ -99,7 +97,6 @@ namespace RevHousingAPI.Controllers
             {
                 return NotFound();
             }
-            repo.SaveChanges();
 
             return location;
         }

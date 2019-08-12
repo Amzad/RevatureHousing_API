@@ -24,7 +24,10 @@ namespace RevHousingAPI.Repositories
             {
                 return false;
             }
+
             Context.Location.Remove(location);
+
+            SaveChanges();
             return true;
         }
         public IEnumerable<Location> GetAllLocations()

@@ -49,7 +49,8 @@ namespace RevHousingAPI.Repositories
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
-        {
+       {
+            SaveChanges();
             return Context.Set<TEntity>().Where(predicate);
         }
 
@@ -61,16 +62,19 @@ namespace RevHousingAPI.Repositories
         public void Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
+            SaveChanges();
         }
 
         public void Remove(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);
+            SaveChanges();
         }
 
         public void Update(TEntity entity)
         {
             Context.Entry(entity).State = EntityState.Modified;
+            SaveChanges();
         }
 
         public void SaveChanges()

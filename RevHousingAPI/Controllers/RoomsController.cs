@@ -58,7 +58,6 @@ namespace RevHousingAPI.Controllers
         public async Task<IActionResult> PutRoom(int? id, Room room)
         {
             repo.Update(room);
-            repo.SaveChanges();
 
             return NoContent();
             /*if (id != room.RoomID)
@@ -92,23 +91,21 @@ namespace RevHousingAPI.Controllers
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
             repo.Add(room);
-            repo.SaveChanges();
 
             return StatusCode(201);
         }
 
         // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Room>> DeleteRoom(Room room)
+        public async Task<ActionResult<Room>> DeleteRoom(int id)
         {
-            bool isRemoved = repo.RemoveRoom(room.RoomID);
+            bool isRemoved = repo.RemoveRoom(id);
             if (isRemoved == false)
             {
                 return NotFound();
             }
-            repo.SaveChanges();
 
-            return room;
+            return StatusCode(201);
         }
 
         private bool RoomExists(int id)

@@ -18,7 +18,7 @@ namespace RevHousingAPI.Repositories
         }
         public IEnumerable<Room> GetRoomWithLocation(int id)
         {
-            return Context.Room.Where(c => c.LocationID == id).ToList();
+            return Context.Room.Where(c => c.LocationID == id && c.IsActive == true).ToList();
         }
         public ApplicationDBContext ApplicationDBContext
         {
@@ -32,7 +32,9 @@ namespace RevHousingAPI.Repositories
             {
                 return false;
             }
-            Context.Room.Remove(room);
+
+            room.IsActive = false;
+            SaveChanges();
             return true;
         }
     }
