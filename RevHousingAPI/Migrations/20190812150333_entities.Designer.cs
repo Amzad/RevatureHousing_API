@@ -10,8 +10,8 @@ using RevHousingAPI.Data;
 namespace RevHousingAPI.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20190812140512_1")]
-    partial class _1
+    [Migration("20190812150333_entities")]
+    partial class entities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,8 +45,6 @@ namespace RevHousingAPI.Migrations
                         .IsRequired();
 
                     b.HasKey("LocationID");
-
-                    b.HasIndex("ProviderID");
 
                     b.ToTable("Locations");
                 });
@@ -110,13 +108,6 @@ namespace RevHousingAPI.Migrations
                     b.HasIndex("LocationID");
 
                     b.ToTable("Rooms");
-                });
-
-            modelBuilder.Entity("RHEntities.Location", b =>
-                {
-                    b.HasOne("RHEntities.Provider", "Provider")
-                        .WithMany()
-                        .HasForeignKey("ProviderID");
                 });
 
             modelBuilder.Entity("RHEntities.Room", b =>
