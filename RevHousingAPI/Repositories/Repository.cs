@@ -13,17 +13,17 @@ namespace RevHousingAPI.Repositories
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext Context;
-        //private DbContextOptions<ApplicationDBContext> context;
+        private DbContextOptions<ApplicationDBContext> _context;
 
         public Repository(DbContext context)
         {
             Context = context;
         }
 
-        //public Repository(DbContextOptions<ApplicationDBContext> context)
-        //{
-        //    this.context = context;
-        //}
+        public Repository(DbContextOptions<ApplicationDBContext> context)
+        {
+            this._context = context;
+        }
 
         public TEntity Get(int id)
         {

@@ -11,37 +11,37 @@ namespace RevHousingAPI.Repositories
 {
     public class LocationRepository : Repository<Location>, ILocationRepository
     {
-        private readonly ApplicationDBContext Context;
+        private readonly ApplicationDBContext _Context;
         public LocationRepository(ApplicationDBContext context) : base(context)
         {
-            Context = context;
+            _Context = context;
         }
 
         public bool RemoveLocation(int id)
         {
-            Location location = Context.Location.Find(id);
+            Location location = _Context.Location.Find(id);
             if (location == null)
             {
                 return false;
             }
 
-            Context.Location.Remove(location);
+            _Context.Location.Remove(location);
 
             SaveChanges();
             return true;
         }
         public IEnumerable<Location> GetAllLocations()
         {          
-            return Context.Location.ToList();
+            return _Context.Location.ToList();
 
         }
         public IEnumerable<Location> GetLocationByTraningCenter(string TrainingCenter)
         {
-            return Context.Location.Where(c => c.TrainingCenter == TrainingCenter);
+            return _Context.Location.Where(c => c.TrainingCenter == TrainingCenter);
         }
         public IEnumerable<Location> GetLocationByProviderID(string ProviderId)
         {
-            return Context.Location.Where(c=> c.ProviderID == ProviderId).ToList();
+            return _Context.Location.Where(c=> c.ProviderID == ProviderId).ToList();
 
         }
     }

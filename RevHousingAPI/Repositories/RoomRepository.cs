@@ -11,19 +11,19 @@ namespace RevHousingAPI.Repositories
 {
     public class RoomRepository : Repository<Room>, IRoomRepository
     {
-        private readonly ApplicationDBContext Context;
+        private readonly ApplicationDBContext _Context;
         public RoomRepository(ApplicationDBContext context) : base(context)
         {
-            Context = context;
+            _Context = context;
         }
         public IEnumerable<Room> GetRoomWithLocation(int id)
         {
-            return Context.Room.Where(c => c.LocationID == id && c.IsActive == true).ToList();
+            return _Context.Room.Where(c => c.LocationID == id && c.IsActive == true).ToList();
         }
 
         public bool RemoveRoom(int id)
         {
-            Room room = Context.Room.Find(id);
+            Room room = _Context.Room.Find(id);
             if (room == null)
             {
                 return false;

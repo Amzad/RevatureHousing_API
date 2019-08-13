@@ -21,50 +21,57 @@ namespace RevHousingAPI.Controllers
     public class LocationsController : ControllerBase
     {
 
-       // private readonly ApplicationDBContext _context;
-        private readonly ILocationRepository _repo;
+        private readonly ApplicationDBContext _context;
+        private readonly ILocationRepository repo;
 
-        public LocationsController(ILocationRepository repo)
+        public LocationsController(ApplicationDBContext context)
         {
-
-            _repo = repo;//new LocationRepository(_context);
+            _context = context;
+            repo = new LocationRepository(_context);
         }
 
         // GET: api/Locations
         [HttpGet]
-        public IEnumerable<Location> GetLocation()
+        public async Task<IEnumerable<Location>> GetLocation()
         {
-            return _repo.GetAll();
+            return repo.GetAll();
         }
         [HttpGet("Provider/{ProviderID}")]
         public async Task<IEnumerable<Location>> GetLocationByProvider(string providerId)
         {
-            return _repo.GetLocationByProviderID(providerId);
+            return repo.GetLocationByProviderID(providerId);
         }
         [HttpGet("Site/{TCLocation}")]
         public async Task<IEnumerable<Location>> GetLocationByTrainingCenter(string tclocation)
         {
-            return _repo.GetLocationByTraningCenter(tclocation);
+            return repo.GetLocationByTraningCenter(tclocation);
         }
         // GET: api/Locations/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Location>> GetLocation(int id)
         {
-            return _repo.Get(id);
+            return repo.Get(id);
         }
 
         // PUT: api/Locations/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLocation(int? id, Location location)
+        public async Task<IActionResult> PutLocation(int id, Location location)
         {
-            _repo.Update(location);
 
-            return NoContent();
-            /*if (location == null)
+            if (location == null)
             {
                 return BadRequest(ModelState);
 
             }
+
+            else
+            {
+                repo.Update(location);
+
+                return NoContent();
+            }
+          
+            /*
 
             if (id != location.LocationID)
             {
@@ -83,7 +90,7 @@ namespace RevHousingAPI.Controllers
         [HttpPost]
         public ActionResult PostLocation(Location location)
         {
-            _repo.Add(location);
+            repo.Add(location);
 
             return StatusCode(201);
         }
@@ -92,7 +99,7 @@ namespace RevHousingAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Location>> DeleteLocation(Location location)
         {
-            bool isRemoved = _repo.RemoveLocation(location.LocationID);
+            bool isRemoved = repo.RemoveLocation(location.LocationID);
             if (isRemoved == false)
             {
                 return NotFound();
