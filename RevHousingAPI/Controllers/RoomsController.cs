@@ -19,26 +19,26 @@ namespace RevHousingAPI.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
-        private readonly IRoomRepository repo;
+        private readonly IRoomRepository _repo;
 
-        public RoomsController(ApplicationDBContext context)
+        public RoomsController(IRoomRepository repo)
         {
-            _context = context;
-            repo = new RoomRepository(_context);
+            //_context = context;
+            _repo = repo;        //  new RoomRepository(_context);
         }
 
         // GET: api/Rooms
         [HttpGet]
         public async Task<IEnumerable<Room>> GetRoom()
         {
-            return repo.GetAll();
+            return _repo.GetAll();
         }
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int id)
         {
-            return repo.Get(id);
+            return _repo.Get(id);
             /*var room = await _context.Room.FindAsync(id);
 
             if (room == null)
@@ -51,13 +51,13 @@ namespace RevHousingAPI.Controllers
         [HttpGet("Location/{id}")]
         public async Task<IEnumerable<Room>> GetRoomWithLocationID(int id)
         {
-            return repo.GetRoomWithLocation(id);
+            return _repo.GetRoomWithLocation(id);
         }
         // PUT: api/Rooms/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRoom(int? id, Room room)
         {
-            repo.Update(room);
+            _repo.Update(room);
 
             return NoContent();
             /*if (id != room.RoomID)
@@ -90,7 +90,7 @@ namespace RevHousingAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
-            repo.Add(room);
+            _repo.Add(room);
 
             return StatusCode(201);
         }
@@ -99,7 +99,7 @@ namespace RevHousingAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Room>> DeleteRoom(int id)
         {
-            bool isRemoved = repo.RemoveRoom(id);
+            bool isRemoved = _repo.RemoveRoom(id);
             if (isRemoved == false)
             {
                 return NotFound();
