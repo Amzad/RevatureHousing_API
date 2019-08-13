@@ -18,7 +18,7 @@ namespace RevHousingAPI.Controllers
     [EnableCors("CorsPolicy")]
     public class RoomsController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
+        //private readonly ApplicationDBContext _context;
         private readonly IRoomRepository _repo;
 
         public RoomsController(IRoomRepository repo)
@@ -108,9 +108,9 @@ namespace RevHousingAPI.Controllers
             return StatusCode(201);
         }
 
-        private bool RoomExists(int id)
-        {
-            return _context.Room.Any(e => e.RoomID == id);
-        }
+        //private bool RoomExists(int id)
+        //{
+        //    return _context.Room.Any(e => e.RoomID == id);
+        //}
     }
 }
