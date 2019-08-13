@@ -55,16 +55,23 @@ namespace RevHousingAPI.Controllers
 
         // PUT: api/Locations/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLocation(int? id, Location location)
+        public async Task<IActionResult> PutLocation(int id, Location location)
         {
-            repo.Update(location);
 
-            return NoContent();
-            /*if (location == null)
+            if (location == null)
             {
                 return BadRequest(ModelState);
 
             }
+
+            else
+            {
+                repo.Update(location);
+
+                return NoContent();
+            }
+          
+            /*
 
             if (id != location.LocationID)
             {
