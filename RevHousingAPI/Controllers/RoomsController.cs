@@ -18,15 +18,22 @@ namespace RevHousingAPI.Controllers
     [EnableCors("CorsPolicy")]
     public class RoomsController : ControllerBase
     {
-        //private readonly ApplicationDBContext _context;
+        /// <summary>
+        /// The variable within the class to access the repository pattern method when called.
+        /// </summary>
         private readonly IRoomRepository _repo;
-
+        /// <summary>
+        /// The dependency injection to call the RoomRepository
+        /// </summary>
+        /// <param name="repo"></param>
         public RoomsController(IRoomRepository repo)
         {
-            //_context = context;
-            _repo = repo;        //  new RoomRepository(_context);
+            _repo = repo;      
         }
-
+        /// <summary>
+        /// This will return all data inside the Room Table
+        /// </summary>
+        /// <returns>Return a list of all the Rooms in the Room table</returns>
         // GET: api/Rooms
         [HttpGet]
         public async Task<IEnumerable<Room>> GetRoom()
@@ -34,24 +41,32 @@ namespace RevHousingAPI.Controllers
             return _repo.GetAll();
         }
 
+        /// <summary>
+        /// This is not the recomended method to get room. This methoad will called the default get room methoad 
+        /// inside the Repostiory class. This does not have the 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: api/Rooms/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int id)
         {
-            return _repo.Get(id);
-            /*var room = await _context.Room.FindAsync(id);
-
+            var room = _repo.Get(id);
             if (room == null)
             {
                 return NotFound();
             }
-
-            return room;*/
+            return room;
         }
         [HttpGet("Location/{id}")]
-        public async Task<IEnumerable<Room>> GetRoomWithLocationID(int id)
+        public async Task<ActionResult<IEnumerable<Room>>> GetRoomWithLocationID(int id)
         {
-            return _repo.GetRoomWithLocation(id);
+            var room = await _repo.GetRoomWithLocation(id);
+            if (room == null)
+            {
+                return NotFound();
+            }
+            return room;
         }
         // PUT: api/Rooms/5
         [HttpPut("{id}")]

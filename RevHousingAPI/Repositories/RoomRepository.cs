@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using RevHousingAPI.IRepositories;
 using RevHousingAPI.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RevHousingAPI.Repositories
 {
@@ -16,9 +17,9 @@ namespace RevHousingAPI.Repositories
         {
             _Context = context;
         }
-        public IEnumerable<Room> GetRoomWithLocation(int id)
+        public async Task<ActionResult<IEnumerable<Room>>> GetRoomWithLocation(int id)
         {
-            return _Context.Room.Where(c => c.LocationID == id && c.IsActive == true).ToList();
+            return await _Context.Room.Where(c => c.LocationID == id && c.IsActive == true).ToListAsync();
         }
 
         public bool RemoveRoom(int id)

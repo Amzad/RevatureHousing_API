@@ -16,7 +16,7 @@ namespace RevHousingAPI.Repositories
         {
             _Context = context;
         }
-
+        
         public bool RemoveLocation(int id)
         {
             Location location = _Context.Location.Find(id);
