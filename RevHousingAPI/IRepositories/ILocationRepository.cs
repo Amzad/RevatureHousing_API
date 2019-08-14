@@ -1,4 +1,5 @@
-﻿using RHEntities;
+﻿using Microsoft.AspNetCore.Mvc;
+using RHEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace RevHousingAPI.IRepositories
     public interface ILocationRepository : IRepository<Location>
     {
         bool RemoveLocation(int id);
-        IEnumerable<Location> GetAllLocations();
-        IEnumerable<Location> GetLocationByTraningCenter(string TrainingCenter);
-        IEnumerable<Location> GetLocationByProviderID(string ProviderID);
+        Task<ActionResult<IEnumerable<Location>>> GetAllLocations();
+        Task<ActionResult<IEnumerable<Location>>> GetLocationByTraningCenter(string TrainingCenter);
+        Task<ActionResult<IEnumerable<Location>>> GetLocationByProviderID(string ProviderID);
     }
 
 }

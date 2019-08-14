@@ -43,22 +43,26 @@ namespace RevHousingAPI.Controllers
 
         /// <summary>
         /// This is not the recomended method to get room. This methoad will called the default get room methoad 
-        /// inside the Repostiory class. This does not have the 
+        /// inside the Repostiory class. This does not have the check condition for if the room is active!
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="RoomID"></param>
+        /// <returns>Return the room object with that room id.</returns>
         // GET: api/Rooms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom(int id)
+        public ActionResult<Room> GetRoom(int RoomID)
         {
-            var room = _repo.Get(id);
+            var room = _repo.Get(RoomID);
             if (room == null)
             {
                 return NotFound();
             }
             return room;
         }
-
+        /// <summary>
+        /// This mehoad will get a list of Room that is inactive that is related to that location ID. 
+        /// </summary>
+        /// <param name="Locationid">LocationID is the FK that is inside the Room Table</param>
+        /// <returns>A list of Room Object</returns>
         [HttpGet("Inactive/{id}")]
         public async Task<ActionResult<IEnumerable<Room>>> GetInactiveRoomByID(int Locationid)
         {
@@ -72,23 +76,36 @@ namespace RevHousingAPI.Controllers
 
             return room;
         }
-
+        /// <summary>
+        /// Connect to the GetRoomWithLocation mehoad in the Room Repository folder. 
+        /// </summary>
+        /// <param name="Locationid">LocationID is the FK that is inside the Room Table</param>
+        /// <returns>A list of Room Object</returns>
         [HttpGet("Location/{id}")]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRoomWithLocationID(int id)
+        public async Task<ActionResult<IEnumerable<Room>>> GetRoomWithLocationID(int Locationid)
         {
-            var room = await _repo.GetRoomWithLocation(id);
+            var room = await _repo.GetRoomWithLocation(Locationid);
             if (room == null)
             {
                 return NotFound();
             }
             return room;
         }
+        /// <summary>
+        /// The default Put method to update Room in DB.
+        /// </summary>
+        /// <param name="id">The Room ID</param>
+        /// <param name="room">The room object being change</param>
+        /// <returns>statuscode: 204 when success, BadRequest if the room id doesnt match.</returns>
         // PUT: api/Rooms/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRoom(int? id, Room room)
         {
-            _repo.Update(room);
-
+            if(id != room.RoomID)
+            {
+                return BadRequest();
+            }
+             _repo.Update(room);
             return NoContent();
             /*if (id != room.RoomID)
             {
@@ -115,27 +132,34 @@ namespace RevHousingAPI.Controllers
 
             return NoContent();*/
         }
-
+        /// <summary>
+        /// This api controller to Add Room object to the room table.
+        /// </summary>
+        /// <param name="room">The Room Object To be add to DB</param>
+        /// <returns>Return 201 for created</returns>
         // POST: api/Rooms
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
             _repo.Add(room);
-
             return StatusCode(201);
         }
-
+        /// <summary>
+        /// This Api controller is use to deactive room. 
+        /// </summary>
+        /// <param name="RoomID">The Room Id</param>
+        /// <returns>Return Not Found, or Statuscode 202 </returns>
         // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Room>> DeleteRoom(int id)
+        public async Task<ActionResult<Room>> DeleteRoom(int RoomID)
         {
-            bool isRemoved = _repo.RemoveRoom(id);
+            bool isRemoved = _repo.RemoveRoom(RoomID);
             if (isRemoved == false)
             {
                 return NotFound();
             }
 
-            return StatusCode(201);
+            return StatusCode(202);
         }
 
         //private bool RoomExists(int id)

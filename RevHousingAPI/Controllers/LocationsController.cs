@@ -20,38 +20,66 @@ namespace RevHousingAPI.Controllers
     [EnableCors("CorsPolicy")]
     public class LocationsController : ControllerBase
     {
-
+        /// <summary>
+        /// Private local variable for the dependency injection
+        /// </summary>
        // private readonly ApplicationDBContext _context;
         private readonly ILocationRepository _repo;
-
+        /// <summary>
+        /// Default constructor for the dependency injection   
+        /// </summary>
+        /// <param name="repo">The location Repository</param>
         public LocationsController(ILocationRepository repo)
         {
             _repo = repo;
         }
-
+        /// <summary>
+        /// This is the default for get location not customrize.
+        /// </summary>
+        /// <returns>This will return all the location that exist in the database.</returns>
         // GET: api/Locations
         [HttpGet]
         public async Task<IEnumerable<Location>> GetLocation()
         {
             return _repo.GetAll();
         }
+        /// <summary>
+        /// This Api controller will search all the location under the same provider.
+        /// </summary>
+        /// <param name="providerId">The provider id come form the azure ad and this string is in the location table.</param>
+        /// <returns>Return a list of location object.</returns>
         [HttpGet("Provider/{ProviderID}")]
-        public async Task<IEnumerable<Location>> GetLocationByProvider(string providerId)
+        public async Task<ActionResult<IEnumerable<Location>>> GetLocationByProvider(string providerId)
         {
-            return _repo.GetLocationByProviderID(providerId);
+            return await _repo.GetLocationByProviderID(providerId);
         }
+        /// <summary>
+        /// Will search avilable location by training center. 
+        /// </summary>
+        /// <param name="tclocation">the training center string in the location table</param>
+        /// <returns>A list of Location object.</returns>
         [HttpGet("Site/{TCLocation}")]
-        public async Task<IEnumerable<Location>> GetLocationByTrainingCenter(string tclocation)
+        public async Task<ActionResult<IEnumerable<Location>>> GetLocationByTrainingCenter(string tclocation)
         {
-            return _repo.GetLocationByTraningCenter(tclocation);
+            return await _repo.GetLocationByTraningCenter(tclocation);
         }
+        /// <summary>
+        /// default get that will get one location, with the unqiue location id
+        /// </summary>
+        /// <param name="id">Primary key Loaction Id </param>
+        /// <returns>One location object with that id.</returns>
         // GET: api/Locations/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Location>> GetLocation(int id)
         {
             return _repo.Get(id);
         }
-
+        /// <summary>
+        /// update location object in the location table.
+        /// </summary>
+        /// <param name="id">the location id</param>
+        /// <param name="location">the location object</param>
+        /// <returns>return status code 204 or bad request  </returns>
         // PUT: api/Locations/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLocation(int id, Location location)
@@ -84,7 +112,11 @@ namespace RevHousingAPI.Controllers
 
             return NoContent();*/
         }
-
+        /// <summary>
+        /// Add new location to the database
+        /// </summary>
+        /// <param name="location">accept location object with all the parameter</param>
+        /// <returns>201 created</returns>
         // POST: api/Locations
         [HttpPost]
         public ActionResult PostLocation(Location location)
@@ -93,18 +125,22 @@ namespace RevHousingAPI.Controllers
 
             return StatusCode(201);
         }
-
+        /// <summary>
+        /// Controller to be updated ... this is incorrect
+        /// </summary>
+        /// <param name="LocationId">Location</param>
+        /// <returns>OK</returns>
         // DELETE: api/Locations/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Location>> DeleteLocation(Location location)
+        public async Task<ActionResult<Location>> DeleteLocation(int LocationId)
         {
-            bool isRemoved = _repo.RemoveLocation(location.LocationID);
+            bool isRemoved = _repo.RemoveLocation(LocationId);
             if (isRemoved == false)
             {
                 return NotFound();
             }
 
-            return location;
+            return Ok();
         }
     }
 
