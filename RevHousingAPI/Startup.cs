@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RevHousingAPI.Data;
+using RevHousingAPI.IRepositories;
+using RevHousingAPI.Repositories;
 
 namespace RevHousingAPI
 {
@@ -41,6 +43,9 @@ namespace RevHousingAPI
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
+            services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<ILocationRepository, LocationRepository>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

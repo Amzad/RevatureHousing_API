@@ -20,10 +20,6 @@ namespace RevHousingAPI.Repositories
         {
             return _Context.Room.Where(c => c.LocationID == id && c.IsActive == true).ToList();
         }
-        public ApplicationDBContext ApplicationDBContext
-        {
-            get { return Context as ApplicationDBContext; }
-        }
 
         public bool RemoveRoom(int id)
         {

@@ -21,36 +21,35 @@ namespace RevHousingAPI.Controllers
     public class LocationsController : ControllerBase
     {
 
-        private readonly ApplicationDBContext _context;
-        private readonly ILocationRepository repo;
+       // private readonly ApplicationDBContext _context;
+        private readonly ILocationRepository _repo;
 
-        public LocationsController(ApplicationDBContext context)
+        public LocationsController(ILocationRepository repo)
         {
-            _context = context;
-            repo = new LocationRepository(_context);
+            _repo = repo;
         }
 
         // GET: api/Locations
         [HttpGet]
         public async Task<IEnumerable<Location>> GetLocation()
         {
-            return repo.GetAll();
+            return _repo.GetAll();
         }
         [HttpGet("Provider/{ProviderID}")]
         public async Task<IEnumerable<Location>> GetLocationByProvider(string providerId)
         {
-            return repo.GetLocationByProviderID(providerId);
+            return _repo.GetLocationByProviderID(providerId);
         }
         [HttpGet("Site/{TCLocation}")]
         public async Task<IEnumerable<Location>> GetLocationByTrainingCenter(string tclocation)
         {
-            return repo.GetLocationByTraningCenter(tclocation);
+            return _repo.GetLocationByTraningCenter(tclocation);
         }
         // GET: api/Locations/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Location>> GetLocation(int id)
         {
-            return repo.Get(id);
+            return _repo.Get(id);
         }
 
         // PUT: api/Locations/5
@@ -66,7 +65,7 @@ namespace RevHousingAPI.Controllers
 
             else
             {
-                repo.Update(location);
+                _repo.Update(location);
 
                 return NoContent();
             }
@@ -90,7 +89,7 @@ namespace RevHousingAPI.Controllers
         [HttpPost]
         public ActionResult PostLocation(Location location)
         {
-            repo.Add(location);
+            _repo.Add(location);
 
             return StatusCode(201);
         }
@@ -99,7 +98,7 @@ namespace RevHousingAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Location>> DeleteLocation(Location location)
         {
-            bool isRemoved = repo.RemoveLocation(location.LocationID);
+            bool isRemoved = _repo.RemoveLocation(location.LocationID);
             if (isRemoved == false)
             {
                 return NotFound();
