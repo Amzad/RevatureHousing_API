@@ -58,6 +58,21 @@ namespace RevHousingAPI.Controllers
             }
             return room;
         }
+
+        [HttpGet("Inactive/{id}")]
+        public async Task<ActionResult<IEnumerable<Room>>> GetInactiveRoomByID(int Locationid)
+        {
+            var room = await _repo.GetInactiveRoomAsync(Locationid); 
+            
+            if (room == null)
+            {
+                return NoContent();
+
+            }
+
+            return room;
+        }
+
         [HttpGet("Location/{id}")]
         public async Task<ActionResult<IEnumerable<Room>>> GetRoomWithLocationID(int id)
         {

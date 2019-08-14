@@ -17,9 +17,16 @@ namespace RevHousingAPI.Repositories
         {
             _Context = context;
         }
-        public async Task<ActionResult<IEnumerable<Room>>> GetRoomWithLocation(int id)
+
+        public async Task<ActionResult<IEnumerable<Room>>> GetInactiveRoomAsync(int Locationid)
         {
-            return await _Context.Room.Where(c => c.LocationID == id && c.IsActive == true).ToListAsync();
+            //throw new NotImplementedException();
+            return await _Context.Room.Where(h => h.LocationID == Locationid && h.IsActive == false).ToListAsync();
+        }
+
+        public IEnumerable<Room> GetRoomWithLocation(int id)
+        {
+            return _Context.Room.Where(c => c.LocationID == id && c.IsActive == true).ToList();
         }
 
         public bool RemoveRoom(int id)
