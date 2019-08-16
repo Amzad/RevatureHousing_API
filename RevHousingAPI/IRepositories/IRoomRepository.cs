@@ -13,5 +13,6 @@ namespace RevHousingAPI.IRepositories
         Task<ActionResult<IEnumerable<Room>>> GetInactiveRoomAsync(int Locationid);
 
         bool RemoveRoom(int id);
+        bool isRoomExist(Room room);
     }
 }

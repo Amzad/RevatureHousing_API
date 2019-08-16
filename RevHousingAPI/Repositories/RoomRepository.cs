@@ -41,5 +41,16 @@ namespace RevHousingAPI.Repositories
             SaveChanges();
             return true;
         }
+
+        public bool isRoomExist(Room room)
+        {
+            Room loc = _Context.Room.Find(room.RoomID);
+            if (loc == null)
+            {
+                return false;
+            }
+            return true;
+
+        }
     }
 }

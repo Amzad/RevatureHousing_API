@@ -85,7 +85,7 @@ namespace RevHousingAPI.Controllers
         public async Task<IActionResult> PutLocation(int id, Location location)
         {
 
-            if (location == null)
+            if (location.LocationID != id)
             {
                 return BadRequest(ModelState);
 
@@ -121,9 +121,14 @@ namespace RevHousingAPI.Controllers
         [HttpPost]
         public ActionResult PostLocation(Location location)
         {
-            _repo.Add(location);
+            //location.
+            if (_repo.isLocationExist(location))
+            {
+                _repo.Add(location);
+                return StatusCode(201);
+            }
 
-            return StatusCode(201);
+            return StatusCode(409);
         }
         /// <summary>
         /// Controller to be updated ... this is incorrect

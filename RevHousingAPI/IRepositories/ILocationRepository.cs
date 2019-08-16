@@ -13,6 +13,7 @@ namespace RevHousingAPI.IRepositories
         Task<ActionResult<IEnumerable<Location>>> GetAllLocations();
         Task<ActionResult<IEnumerable<Location>>> GetLocationByTraningCenter(string TrainingCenter);
         Task<ActionResult<IEnumerable<Location>>> GetLocationByProviderID(string ProviderID);
+        bool isLocationExist(Location location);
     }
 
 }

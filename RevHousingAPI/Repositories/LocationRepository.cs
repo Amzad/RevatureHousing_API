@@ -63,5 +63,16 @@ namespace RevHousingAPI.Repositories
             return await _Context.Location.Where(c=> c.ProviderID == ProviderId).ToListAsync();
 
         }
+
+        public bool isLocationExist(Location location)
+        {
+            Location loc =_Context.Location.Find(location.LocationID);
+            if (loc == null)
+            {
+                return false;
+            }
+            return true;
+
+        }
     }
 }

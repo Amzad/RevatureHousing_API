@@ -141,8 +141,12 @@ namespace RevHousingAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
-            _repo.Add(room);
-            return StatusCode(201);
+            if (_repo.isRoomExist(room))
+            {
+                _repo.Add(room);
+                return StatusCode(201);
+            }
+            return StatusCode(409);
         }
         /// <summary>
         /// This Api controller is use to deactive room. 
