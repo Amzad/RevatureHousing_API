@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.AzureADB2C.UI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RevHousingAPI.Data;
+using Microsoft.EntityFrameworkCore;
 using RevHousingAPI.IRepositories;
 using RevHousingAPI.Repositories;
 
@@ -46,6 +48,8 @@ namespace RevHousingAPI
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
 
+            services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
+                .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -63,8 +67,8 @@ namespace RevHousingAPI
             }
 
             app.UseCors("CorsPolicy");
-
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
