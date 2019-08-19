@@ -13,6 +13,10 @@ namespace RevHousingAPI.Repositories
     public class LocationRepository : Repository<Location>, ILocationRepository
     {
         private readonly ApplicationDBContext _Context;
+        /// <summary>
+        /// constructor and database service injection
+        /// </summary>
+        /// <param name="context"></param>
         public LocationRepository(ApplicationDBContext context) : base(context)
         {
             _Context = context;
@@ -64,6 +68,11 @@ namespace RevHousingAPI.Repositories
 
         }
 
+        /// <summary>
+        /// Search Database to find the location with the location ID
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns>true or false if the location found</returns>
         public bool isLocationExist(Location location)
         {
             Location loc =_Context.Location.Find(location.LocationID);

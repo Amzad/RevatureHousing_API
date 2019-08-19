@@ -14,7 +14,10 @@ namespace RevHousingAPI.Repositories
     {
         protected readonly DbContext Context;
         //private DbContextOptions<ApplicationDBContext> _context;
-
+        /// <summary>
+        /// constructor and database service injection
+        /// </summary>
+        /// <param name="context"></param>
         public Repository(DbContext context)
         {
             Context = context;
