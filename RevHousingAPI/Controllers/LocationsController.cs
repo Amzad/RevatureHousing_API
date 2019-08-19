@@ -122,7 +122,7 @@ namespace RevHousingAPI.Controllers
         public ActionResult PostLocation(Location location)
         {
             //location.
-            if (_repo.isLocationExist(location))
+            if (!_repo.isLocationExist(location))
             {
                 _repo.Add(location);
                 return StatusCode(201);

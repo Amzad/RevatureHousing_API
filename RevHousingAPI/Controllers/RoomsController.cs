@@ -141,7 +141,7 @@ namespace RevHousingAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
-            if (_repo.isRoomExist(room))
+            if (!_repo.isRoomExist(room))
             {
                 _repo.Add(room);
                 return StatusCode(201);
