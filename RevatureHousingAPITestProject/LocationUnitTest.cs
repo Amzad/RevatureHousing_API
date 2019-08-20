@@ -29,7 +29,7 @@ namespace RevatureHousingAPITestProject
         public Location dummyConstantLocation;
         public LocationUnitTest()
         {
-            // Arrange Everything We Need For Our Unit Tests
+            /*// Arrange Everything We Need For Our Unit Tests
             options = new DbContextOptionsBuilder<ApplicationDBContext>()
             .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
             .Options;
@@ -38,7 +38,7 @@ namespace RevatureHousingAPITestProject
             dummyLocations = dummyLocationsData.LocationsList;
             testLocationRepository = new LocationRepository(testContext);
             testLocationController = new LocationsController(testLocationRepository);
-            dummyConstantLocation = new Location() { LocationID = 3 };
+            dummyConstantLocation = new Location() { LocationID = 3 };*/
         }
         public void ClearAllChanges()
         {
@@ -58,6 +58,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CanPostLocationToDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Arrange
             Location dummyLocation = dummyConstantLocation;
             //Act
@@ -65,10 +75,21 @@ namespace RevatureHousingAPITestProject
             var postResult = (postResponse as StatusCodeResult);
             Assert.IsInstanceOfType(postResult,typeof(StatusCodeResult));
             Assert.AreEqual(postResult.StatusCode,201);
+            ClearAllChanges();
         }
         [TestMethod]
         public void CannotAddSameLocationTwiceInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Arrange
             Location dummyLocation = dummyConstantLocation;
             var postResponse = testLocationController.PostLocation(dummyLocation);
@@ -84,6 +105,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CanGetAllLocationsInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Arrange
             Populate();
             //Act
@@ -96,34 +127,77 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CantGetLocationInEmptyDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Act
             var getLocationResult = testLocationController.GetLocation(8191).Result.Value;
             //Assert
             Assert.AreEqual(getLocationResult,null);
+            ClearAllChanges();
         }
         [TestMethod]
         public void CantGetLocationNotInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Arrange
             Populate();
             //Act
             var getLocationResult = testLocationController.GetLocation(8191).Result.Value;
             //Assert
             Assert.AreEqual(getLocationResult, null);
+            ClearAllChanges();
         }
         [TestMethod]
         public void CanGetLocationInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Arrange
             Populate();
             //Act
             var getLocationResult = testLocationController.GetLocation(5).Result.Value;
             //Assert
             Assert.IsInstanceOfType(getLocationResult, typeof(Location));
+            ClearAllChanges();
         }
         [TestMethod]
         public void CannotUpdateLocationWithWrongSignature()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Arrange
             Location locale = new Location() { LocationID = 5 };
             var postResponse = testLocationController.PostLocation(locale);
@@ -137,6 +211,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CanDeleteLocationInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Arrange
             Location locale = new Location() { LocationID = 5 };
             var postResponse = testLocationController.PostLocation(locale);
@@ -152,8 +236,18 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CannotDeleteLocationInEmptyDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Act
-            var deleteResult = testLocationController.DeleteLocation(5).Result.Result;
+            var deleteResult = testLocationController.DeleteLocation(19292).Result.Result;
             var deleteStatusCode = (deleteResult as StatusCodeResult);
             //Assert
             Assert.IsInstanceOfType(deleteResult, typeof(NotFoundResult));
@@ -164,6 +258,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CannotDeleteLocationNotInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Arrange
             Populate();
             //Act
@@ -178,6 +282,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CanGetLocationWithProviderInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Arrange
             Populate();
             //Act
@@ -190,14 +304,35 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CantGetLocationWithProviderInEmptyDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Act
             var GetLocationWithProviderResult = testLocationController.GetLocationByProvider(12.ToString()).Result.Value.ToList();
             //Assert
             Assert.AreEqual(GetLocationWithProviderResult.Count(), 0);
+            ClearAllChanges();
         }
         [TestMethod]
         public void CantGetLocationWithProviderNotInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Arrange
             Populate();
             string inValidProvider = "InValidProviderName";
@@ -205,10 +340,21 @@ namespace RevatureHousingAPITestProject
             var GetLocationWithProviderResult = testLocationController.GetLocationByProvider(inValidProvider).Result.Value.ToList();
             //Assert
             Assert.AreEqual(GetLocationWithProviderResult.Count(), 0);
+            ClearAllChanges();
         }
         [TestMethod]
         public void CanGetLocationByTrainingCenterInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Arrange
             Populate();
             //Act
@@ -221,14 +367,35 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CantGetLocationByTrainingCenterInEmptyDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Act
             var GetLocationWithProviderResult = testLocationController.GetLocationByTrainingCenter(14.ToString()).Result.Value.ToList();
             //Assert
             Assert.AreEqual(GetLocationWithProviderResult.Count(), 0);
+            ClearAllChanges();
         }
         [TestMethod]
         public void CantGetLocationByTrainingCenterNotInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyLocationsData = new LocationDummyData();
+            dummyLocations = dummyLocationsData.LocationsList;
+            testLocationRepository = new LocationRepository(testContext);
+            testLocationController = new LocationsController(testLocationRepository);
+            dummyConstantLocation = new Location() { LocationID = 3 };
             //Arrange
             Populate();
             string inValidTrainingCenter = "InValidTrainingCenter";
@@ -236,6 +403,7 @@ namespace RevatureHousingAPITestProject
             var GetLocationWithProviderResult = testLocationController.GetLocationByTrainingCenter(inValidTrainingCenter).Result.Value.ToList();
             //Assert
             Assert.AreEqual(GetLocationWithProviderResult.Count(), 0);
+            ClearAllChanges();
         }
 
 

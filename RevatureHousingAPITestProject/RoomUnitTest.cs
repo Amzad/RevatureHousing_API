@@ -28,7 +28,7 @@ namespace RevatureHousingAPITestProject
         public Room dummyConstantRoom;
         public RoomUnitTest()
         {
-            // Arrange Everything We Need For Our Unit Tests
+            /*// Arrange Everything We Need For Our Unit Tests
             options = new DbContextOptionsBuilder<ApplicationDBContext>()
             .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
             .Options;
@@ -37,7 +37,7 @@ namespace RevatureHousingAPITestProject
             dummyRooms = dummyRoomsData.RoomsList;
             testRoomRepository = new RoomRepository(testContext);
             testRoomController = new RoomsController(testRoomRepository);
-            dummyConstantRoom = new Room() { RoomID = 12728 };
+            dummyConstantRoom = new Room() { RoomID = 12728 };*/
         }
         public void ClearAllChanges()
         {
@@ -57,6 +57,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CanPostRoomToDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Arrange
             Room dummyRoom = dummyConstantRoom;
             //Act
@@ -72,6 +82,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CannotAddSameRoomTwiceInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Arrange
             Room dummyRoom = dummyConstantRoom;
             var postResponse = testRoomController.PostRoom(dummyRoom);
@@ -88,6 +108,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CanGetAllRoomsInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             // Arrange 
             // Adding all rooms to database
             Populate();
@@ -101,14 +131,35 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CantGetRoomInEmptyDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             // Act
             var getRoomResult = testRoomController.GetRoom(8191).Result;
             // Assert
             Assert.IsInstanceOfType(getRoomResult,typeof(NotFoundResult));
+            ClearAllChanges();
         }
         [TestMethod]
         public void CantGetRoomNotInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Arrange
             Populate();
             // Act
@@ -121,6 +172,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CanGetRoomInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Arrange
             Populate();
             // Act
@@ -133,6 +194,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CannotUpdateRoomWithWrongSignature()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Arrange
             Room room = new Room() { RoomID = 5 };
             var postResponse = testRoomController.PostRoom(room);
@@ -146,6 +217,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CanDeleteRoomInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Arrange
             Room room = new Room() { RoomID = 5 };
             var postResponse = testRoomController.PostRoom(room);
@@ -160,6 +241,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CannotDeleteRoomInEmptyDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Act
             var deleteResult = testRoomController.DeleteRoom(5).Result.Result;
             //Assert
@@ -170,6 +261,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CannotDeleteRoomNotInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Arrange
             Populate();
             //Act
@@ -182,6 +283,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CanGetRoomWithLocationIDInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Arrange
             Populate();
             //Act
@@ -197,14 +308,35 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CantGetRoomWithLocationIDInEmptyDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Act
             var GetRoomWithLocationIDResult = testRoomController.GetRoomWithLocationID(6).Result.Value.ToList();
             //assert
             Assert.AreEqual(GetRoomWithLocationIDResult.Count(), 0);
+            ClearAllChanges();
         }
         [TestMethod]
         public void CantGetRoomWithLocationIDNotInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Arrange
             Populate();
             //Act
@@ -217,6 +349,16 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CanGetInactiveRoomWithIDInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Arrange
             Populate();
             //Act
@@ -229,14 +371,35 @@ namespace RevatureHousingAPITestProject
         [TestMethod]
         public void CantGetInactiveRoomWithIDInEmptyDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Act
             var GetRoomWithLocationIDResult = testRoomController.GetInactiveRoomByID(18).Result.Value.ToList();
             //assert
             Assert.AreEqual(GetRoomWithLocationIDResult.Count(), 0);
+            ClearAllChanges();
         }
         [TestMethod]
         public void CantGetInacitveRoomWithIDNotInDatabase()
         {
+            // Arrange Everything We Need For Our Unit Tests
+            options = new DbContextOptionsBuilder<ApplicationDBContext>()
+            .UseInMemoryDatabase(databaseName: "TestRevatureHousingData")
+            .Options;
+            testContext = new ApplicationDBContext(options);
+            dummyRoomsData = new RoomDummyData();
+            dummyRooms = dummyRoomsData.RoomsList;
+            testRoomRepository = new RoomRepository(testContext);
+            testRoomController = new RoomsController(testRoomRepository);
+            dummyConstantRoom = new Room() { RoomID = 12728 };
             //Arrange
             Populate();
             //Act

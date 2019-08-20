@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RevHousingAPI", "RevHousing
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RHEntities", "..\RHEntities\RHEntities.csproj", "{629AB0B1-5EE5-4094-AF16-F4C46990623C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RevatureHousingAPITestProject", "..\RevatureHousingAPITestProject\RevatureHousingAPITestProject.csproj", "{A0A39554-915E-4E28-BACE-8D393A16A458}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RevatureHousingAPIUnitTest", "..\RevatureHousingAPITestProject\RevatureHousingAPIUnitTest.csproj", "{A0A39554-915E-4E28-BACE-8D393A16A458}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
