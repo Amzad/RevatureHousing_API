@@ -48,7 +48,7 @@ namespace RevHousingAPI.Controllers
         /// <param name="RoomID"></param>
         /// <returns>Return the room object with that room id.</returns>
         // GET: api/Rooms/5
-        [HttpGet("{id}")]
+        [HttpGet("{RoomID}")]
         public ActionResult<Room> GetRoom(int RoomID)
         {
             var room = _repo.Get(RoomID);
@@ -61,12 +61,12 @@ namespace RevHousingAPI.Controllers
         /// <summary>
         /// This mehoad will get a list of Room that is inactive that is related to that location ID. 
         /// </summary>
-        /// <param name="Locationid">LocationID is the FK that is inside the Room Table</param>
+        /// <param name="LocationID">LocationID is the FK that is inside the Room Table</param>
         /// <returns>A list of Room Object</returns>
-        [HttpGet("Inactive/{id}")]
-        public async Task<ActionResult<IEnumerable<Room>>> GetInactiveRoomByID(int Locationid)
+        [HttpGet("Inactive/{LocationID}")]
+        public async Task<ActionResult<IEnumerable<Room>>> GetInactiveRoomByID(int LocationID)
         {
-            var room = await _repo.GetInactiveRoomAsync(Locationid); 
+            var room = await _repo.GetInactiveRoomAsync(LocationID); 
             
             if (room == null)
             {
@@ -79,12 +79,12 @@ namespace RevHousingAPI.Controllers
         /// <summary>
         /// Connect to the GetRoomWithLocation mehoad in the Room Repository folder. 
         /// </summary>
-        /// <param name="Locationid">LocationID is the FK that is inside the Room Table</param>
+        /// <param name="LocationID">LocationID is the FK that is inside the Room Table</param>
         /// <returns>A list of Room Object</returns>
-        [HttpGet("Location/{id}")]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRoomWithLocationID(int Locationid)
+        [HttpGet("Location/{LocationID}")]
+        public async Task<ActionResult<IEnumerable<Room>>> GetRoomWithLocationID(int LocationID)
         {
-            var room = await _repo.GetRoomWithLocation(Locationid);
+            var room = await _repo.GetRoomWithLocation(LocationID);
             if (room == null)
             {
                 return NotFound();
@@ -94,14 +94,14 @@ namespace RevHousingAPI.Controllers
         /// <summary>
         /// The default Put method to update Room in DB.
         /// </summary>
-        /// <param name="id">The Room ID</param>
+        /// <param name="RoomID">The Room ID</param>
         /// <param name="room">The room object being change</param>
         /// <returns>statuscode: 204 when success, BadRequest if the room id doesnt match.</returns>
         // PUT: api/Rooms/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoom(int? id, Room room)
+        [HttpPut("{RoomID}")]
+        public async Task<IActionResult> PutRoom(int? RoomID, Room room)
         {
-            if(id != room.RoomID)
+            if(RoomID != room.RoomID)
             {
                 return BadRequest();
             }
@@ -154,7 +154,7 @@ namespace RevHousingAPI.Controllers
         /// <param name="RoomID">The Room Id</param>
         /// <returns>Return Not Found, or Statuscode 202 </returns>
         // DELETE: api/Rooms/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{RoomID}")]
         public async Task<ActionResult<Room>> DeleteRoom(int RoomID)
         {
             bool isRemoved = _repo.RemoveRoom(RoomID);

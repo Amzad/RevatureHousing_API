@@ -46,12 +46,12 @@ namespace RevHousingAPI.Controllers
         /// <summary>
         /// This Api controller will search all the location under the same provider.
         /// </summary>
-        /// <param name="providerId">The provider id come form the azure ad and this string is in the location table.</param>
+        /// <param name="ProviderID">The provider id come form the azure ad and this string is in the location table.</param>
         /// <returns>Return a list of location object.</returns>
         [HttpGet("Provider/{ProviderID}")]
-        public async Task<ActionResult<IEnumerable<Location>>> GetLocationByProvider(string providerId)
+        public async Task<ActionResult<IEnumerable<Location>>> GetLocationByProvider(string ProviderID)
         {
-            return await _repo.GetLocationByProviderID(providerId);
+            return await _repo.GetLocationByProviderID(ProviderID);
         }
         /// <summary>
         /// Will search avilable location by training center. 
@@ -59,33 +59,33 @@ namespace RevHousingAPI.Controllers
         /// <param name="tclocation">the training center string in the location table</param>
         /// <returns>A list of Location object.</returns>
         [HttpGet("Site/{TCLocation}")]
-        public async Task<ActionResult<IEnumerable<Location>>> GetLocationByTrainingCenter(string tclocation)
+        public async Task<ActionResult<IEnumerable<Location>>> GetLocationByTrainingCenter(string TCLocation)
         {
-            return await _repo.GetLocationByTraningCenter(tclocation);
+            return await _repo.GetLocationByTraningCenter(TCLocation);
         }
         /// <summary>
         /// default get that will get one location, with the unqiue location id
         /// </summary>
-        /// <param name="id">Primary key Loaction Id </param>
+        /// <param name="LocationID">Primary key Loaction Id </param>
         /// <returns>One location object with that id.</returns>
         // GET: api/Locations/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Location>> GetLocation(int id)
+        [HttpGet("{LocationID}")]
+        public async Task<ActionResult<Location>> GetLocation(int LocationID)
         {
-            return _repo.Get(id);
+            return _repo.Get(LocationID);
         }
         /// <summary>
         /// update location object in the location table.
         /// </summary>
-        /// <param name="id">the location id</param>
+        /// <param name="LocationID">the location id</param>
         /// <param name="location">the location object</param>
         /// <returns>return status code 204 or bad request  </returns>
         // PUT: api/Locations/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLocation(int id, Location location)
+        [HttpPut("{LocationID}")]
+        public async Task<IActionResult> PutLocation(int LocationID, Location location)
         {
 
-            if (location.LocationID != id)
+            if (location.LocationID != LocationID)
             {
                 return BadRequest(ModelState);
 
@@ -136,10 +136,10 @@ namespace RevHousingAPI.Controllers
         /// <param name="LocationId">Location</param>
         /// <returns>OK</returns>
         // DELETE: api/Locations/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Location>> DeleteLocation(int LocationId)
+        [HttpDelete("{LocationID}")]
+        public async Task<ActionResult<Location>> DeleteLocation(int LocationID)
         {
-            bool isRemoved = _repo.RemoveLocation(LocationId);
+            bool isRemoved = _repo.RemoveLocation(LocationID);
             if (isRemoved == false)
             {
                 return NotFound();
