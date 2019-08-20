@@ -48,8 +48,8 @@ namespace RevHousingAPI
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
 
-            services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
-                .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options));
+            //services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
+            //    .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -68,7 +68,7 @@ namespace RevHousingAPI
 
             app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
-            app.UseAuthentication();
+            //app.UseAuthentication();
             app.UseMvc();
         }
     }

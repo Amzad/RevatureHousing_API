@@ -13,7 +13,6 @@ namespace RevHousingAPI.Data
         {
         }
 
-        public DbSet<Provider> Provider { get; set; }
         public DbSet<Location> Location { get; set; }
         public DbSet<Room> Room { get; set; }
     }
